@@ -54,6 +54,7 @@ body {
   align-items: center;
   max-width: 95%;
   width: 31.25em;
+  min-width: 30rem;
   padding: 1.25em;
 
   border-radius: 0.25em;
