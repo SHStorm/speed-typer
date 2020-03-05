@@ -99,7 +99,7 @@ function nextWord() {
 }
 
 async function randomWord() {
-    const response = await fetch('http://puzzle.mead.io/puzzle?wordCount=1');
+    const response = await fetch('https://puzzle.mead.io/puzzle?wordCount=1');
     const responseBody = await response.json();
 
     return responseBody.puzzle.toLowerCase();
