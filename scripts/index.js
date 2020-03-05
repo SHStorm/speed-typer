@@ -1,13 +1,17 @@
 const SHOULD_AUTO_TYPE = false;
 
+let score = 0;
+
 const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
+const $score = document.getElementById('score');
 
 $wordInput.focus();
 $wordInput.addEventListener('input', () => {
     validateInput();
 });
 
+renderScore();
 nextWord();
 
 if (SHOULD_AUTO_TYPE) {
@@ -16,8 +20,18 @@ if (SHOULD_AUTO_TYPE) {
 
 function validateInput() {
     if (checkWord()) {
+        incrementScore();
         nextWord();
     }
+}
+
+function incrementScore() {
+    score++;
+    renderScore();
+}
+
+function renderScore() {
+    $score.textContent = score + '';
 }
 
 function checkWord() {

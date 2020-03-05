@@ -67,6 +67,15 @@ body {
   width: 60%;
 }
 
+.panel__score {
+  margin-bottom: 1em;
+}
+
+.score {
+  font-weight: 300;
+  font-style: italic;
+}
+
 .info {
   font-size: 0.833em;
 }
