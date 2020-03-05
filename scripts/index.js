@@ -1,3 +1,5 @@
+const SHOULD_AUTO_TYPE = false;
+
 const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
 
@@ -7,6 +9,10 @@ $wordInput.addEventListener('input', () => {
 });
 
 nextWord();
+
+if (SHOULD_AUTO_TYPE) {
+    startAutoType();
+}
 
 function validateInput() {
     if (checkWord()) {
@@ -35,4 +41,33 @@ async function randomWord() {
     const responseBody = await response.json();
 
     return responseBody.puzzle.toLowerCase();
+}
+
+function startAutoType() {
+    const minDelay = 30;
+    const maxDelay = 100;
+
+    setTimeout(() => {
+        autoType();
+
+        setTimeout(startAutoType, randomInRange(minDelay, maxDelay));
+    }, randomInRange(minDelay, maxDelay));
+}
+
+function autoType() {
+    const word = $word.textContent;
+    const wordInput = $wordInput.value;
+
+    if (word !== 'loading...') {
+        $wordInput.value += nextLetter(wordInput, word);
+        $wordInput.dispatchEvent(new Event('input'));
+    }
+}
+
+function nextLetter(sub, word) {
+    return word.charAt(sub.length);
+}
+
+function randomInRange(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
 }
