@@ -18,7 +18,7 @@ body {
   font-size: 1.6rem;
 }
 
-h1, h2, h3, h4, h5, h6, small, i, em, b, strong, input, button {
+h1, h2, h3, h4, h5, h6, small, i, em, b, strong, input, button, kbd {
   font: inherit;
 }
 

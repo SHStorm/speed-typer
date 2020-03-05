@@ -12,18 +12,18 @@
   <script src="/scripts/index.js" defer></script>
 </head>
 <body>
-  <main class="panel">
+  <section class="panel">
     <header class="panel__header">
-      <h1 class="title">&#x1f468;&#x200d;&#x1f4bb; Speed Typer &#x1f469;&#x200d;&#x1f4bb;</h1>
+      <h1 class="title"><span aria-hidden="true">&#x1f468;&#x200d;&#x1f4bb; </span>Speed Typer<span aria-hidden="true"> &#x1f469;&#x200d;&#x1f4bb;</span></h1>
     </header>
     <div class="panel__stats stats">
       <b class="stat">Time: <span id="time">0</span>s</b>
       <b class="stat">Score: <span id="score">0</span></b>
     </div>
-    <small class="info">Type the following:</small>
-    <b id="word" class="word"></b>
+    <small id="info" class="info">Type the following:</small>
+    <kbd id="word" class="word" aria-labelledby="info"></kbd>
     <label class="sr-only" for="word-input">Type the word</label>
     <input id="word-input" class="panel__input input" type="text" placeholder="Type the word here...">
-  </main>
+  </section>
 </body>
 </html>
