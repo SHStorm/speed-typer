@@ -14,7 +14,11 @@ window.addEventListener('keydown', () => {
 });
 
 $wordInput.focus();
-$wordInput.addEventListener('input', () => {
+$wordInput.addEventListener('input', e => {
+    if (SHOULD_AUTO_TYPE && !e.autoTyped) {
+        $wordInput.value = $wordInput.value.slice(0, -1);
+    }
+
     validateInput();
 });
 
@@ -118,7 +122,9 @@ function autoType() {
 
     if (word !== 'loading...') {
         $wordInput.value += nextLetter(wordInput, word);
-        $wordInput.dispatchEvent(new Event('input'));
+        const event = new Event('input');
+        event.autoTyped = true;
+        $wordInput.dispatchEvent(event);
     }
 }
 
