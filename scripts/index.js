@@ -28,9 +28,15 @@ if (SHOULD_AUTO_TYPE) {
 
 function validateInput() {
     if (checkWord()) {
+        incrementTime();
         incrementScore();
         nextWord();
     }
+}
+
+function incrementTime() {
+    time++;
+    renderTime();
 }
 
 function incrementScore() {
