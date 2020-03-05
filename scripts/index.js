@@ -1,10 +1,13 @@
-const SHOULD_AUTO_TYPE = false;
+const SHOULD_AUTO_TYPE = true;
+const INITIAL_TIME = 10;
 
 let score = 0;
+let time = INITIAL_TIME;
 
 const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
 const $score = document.getElementById('score');
+const $time = document.getElementById('time');
 
 window.addEventListener('keydown', () => {
     $wordInput.focus();
@@ -17,6 +20,7 @@ $wordInput.addEventListener('input', () => {
 
 renderScore();
 nextWord();
+startTimer();
 
 if (SHOULD_AUTO_TYPE) {
     startAutoType();
@@ -36,6 +40,36 @@ function incrementScore() {
 
 function renderScore() {
     $score.textContent = score + '';
+}
+
+function renderTime() {
+    $time.textContent = time + '';
+}
+
+function startTimer() {
+    renderTime();
+
+    setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    time--;
+    renderTime();
+
+    if (time === 0) {
+        restartGame();
+    }
+}
+
+function restartGame() {
+    score = 0;
+    renderScore();
+
+    time = INITIAL_TIME;
+    renderTime();
+
+    $wordInput.value = '';
+    nextWord();
 }
 
 function checkWord() {

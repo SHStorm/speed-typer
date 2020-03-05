@@ -67,11 +67,17 @@ body {
   width: 60%;
 }
 
-.panel__score {
+.panel__stats {
+  width: 100%;
   margin-bottom: 1em;
 }
 
-.score {
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat {
   font-weight: 300;
   font-style: italic;
 }
