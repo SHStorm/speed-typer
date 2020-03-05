@@ -6,6 +6,10 @@ const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
 const $score = document.getElementById('score');
 
+window.addEventListener('keydown', () => {
+    $wordInput.focus();
+});
+
 $wordInput.focus();
 $wordInput.addEventListener('input', () => {
     validateInput();
