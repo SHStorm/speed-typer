@@ -30,8 +30,8 @@ const WordInputModule = {
         this._$wordInput.dispatchEvent(event);
     },
 
-    _handleInput(event) {
-        this._inputListeners.forEach(listener => listener(event));
+    _handleInput() {
+        this._inputListeners.forEach(listener => listener());
     }
 };
 

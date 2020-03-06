@@ -1,24 +1,14 @@
-const SHOULD_AUTO_TYPE = false;
-
 window.addEventListener('keydown', () => {
     WordInputModule.focus();
 });
 
 WordInputModule.focus();
-WordInputModule.onInput(e => {
-    if (SHOULD_AUTO_TYPE && !e.autoTyped) {
-        WordInputModule.word = WordInputModule.word.slice(0, -1);
-    }
-
+WordInputModule.onInput(() => {
     validateInput();
 });
 
 TimerModule.onTimeEnd(restartGame);
 restartGame();
-
-if (SHOULD_AUTO_TYPE) {
-    startAutoType();
-}
 
 function validateInput() {
     if (checkWord()) {
@@ -53,35 +43,4 @@ async function randomWord() {
     const responseBody = await response.json();
 
     return responseBody.puzzle.toLowerCase();
-}
-
-function startAutoType() {
-    const minDelay = 30;
-    const maxDelay = 100;
-
-    setTimeout(() => {
-        autoType();
-
-        setTimeout(startAutoType, randomInRange(minDelay, maxDelay));
-    }, randomInRange(minDelay, maxDelay));
-}
-
-function autoType() {
-    const word = WordModule.word;
-    const wordInput = WordInputModule.word;
-
-    if (word !== 'loading...') {
-        WordInputModule.word += nextLetter(wordInput, word);
-        const event = new Event('input');
-        event.autoTyped = true;
-        WordInputModule.dispatchEvent(event);
-    }
-}
-
-function nextLetter(sub, word) {
-    return word.charAt(sub.length);
-}
-
-function randomInRange(min, max) {
-    return min + Math.floor(Math.random() * (max - min + 1));
 }
