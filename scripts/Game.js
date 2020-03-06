@@ -2,7 +2,7 @@ const Game = {
     init() {
         this._enableAutofocusOnKeyPress();
         WordInputModule.focus();
-        WordInputModule.onInput(this._validateInput.bind(this));
+        WordInputModule.onInput(this._handleInput.bind(this));
         TimerModule.onTimeEnd(this.restart.bind(this));
     },
 
@@ -12,7 +12,7 @@ const Game = {
         ScoreModule.reset();
         TimerModule.startTimer();
 
-        this._nextWord();
+        this._updateWord();
     },
 
     restart() {
@@ -25,22 +25,22 @@ const Game = {
         });
     },
 
-    _validateInput() {
-        if (this._checkWord()) {
+    _handleInput() {
+        if (this._isWordCompleted()) {
             TimerModule.incrementTime();
             ScoreModule.incrementScore();
-            this._nextWord();
+            this._updateWord();
         }
     },
 
-    _checkWord() {
+    _isWordCompleted() {
         const enteredWord = WordInputModule.word;
         const requiredWord = WordModule.word;
 
         return enteredWord.toLowerCase() === requiredWord.toLowerCase();
     },
 
-    _nextWord() {
+    _updateWord() {
         WordInputModule.clear();
         WordModule.word = this._randomWord();
     },
