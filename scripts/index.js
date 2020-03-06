@@ -1,5 +1,5 @@
 const SHOULD_AUTO_TYPE = true;
-const INITIAL_TIME = 10;
+const INITIAL_TIME = 30;
 const TIME_PER_WORD = 2;
 
 const ScoreModule = {
