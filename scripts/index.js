@@ -1,6 +1,4 @@
 const SHOULD_AUTO_TYPE = false;
-const INITIAL_TIME = 30;
-const TIME_PER_WORD = 2;
 
 const ScoreModule = {
     _SCORE_STEP: 5,
@@ -30,11 +28,66 @@ const ScoreModule = {
     }
 };
 
-let time = INITIAL_TIME;
+const TimerModule = {
+    INITIAL_TIME: 30,
+    TIME_PER_WORD: 2,
+
+    _$time: document.getElementById('time'),
+    _time: 0,
+    _timerInterval: -1,
+    _timeEndListeners: [],
+
+    set time(newTime) {
+        this._time = newTime;
+        this.renderTime();
+    },
+
+    get time() {
+        return this._time;
+    },
+
+    incrementTime() {
+        this.time += this.TIME_PER_WORD;
+    },
+
+    reset() {
+        this.time = this.INITIAL_TIME;
+    },
+
+    renderTime() {
+        this._$time.textContent = this._time;
+    },
+
+    startTimer() {
+        this.reset();
+        this._timerInterval = setInterval(this._tick.bind(this), 1000);
+    },
+
+    _tick() {
+        this.time--;
+
+        if (this.time === 0) {
+            this._timeEnded();
+        }
+    },
+
+    _timeEnded() {
+        if (this._timerInterval === -1) {
+            return;
+        }
+
+        clearInterval(this._timerInterval);
+        this._timerInterval = -1;
+        this._timeEndListeners.forEach(listener => listener());
+    },
+
+    onTimeEnd(listener) {
+        this._timeEndListeners.push(listener);
+    }
+};
 
 const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
-const $time = document.getElementById('time');
 
 window.addEventListener('keydown', () => {
     $wordInput.focus();
@@ -49,7 +102,7 @@ $wordInput.addEventListener('input', e => {
     validateInput();
 });
 
-startTimer();
+TimerModule.onTimeEnd(restartGame);
 restartGame();
 
 if (SHOULD_AUTO_TYPE) {
@@ -58,41 +111,15 @@ if (SHOULD_AUTO_TYPE) {
 
 function validateInput() {
     if (checkWord()) {
-        incrementTime();
+        TimerModule.incrementTime();
         ScoreModule.incrementScore();
         nextWord();
     }
 }
 
-function incrementTime() {
-    time += TIME_PER_WORD;
-    renderTime();
-}
-
-function renderTime() {
-    $time.textContent = time + '';
-}
-
-function startTimer() {
-    renderTime();
-
-    setInterval(updateTimer, 1000);
-}
-
-function updateTimer() {
-    time--;
-    renderTime();
-
-    if (time === 0) {
-        restartGame();
-    }
-}
-
 function restartGame() {
     ScoreModule.reset();
-
-    time = INITIAL_TIME;
-    renderTime();
+    TimerModule.startTimer();
 
     $wordInput.value = '';
     nextWord();
