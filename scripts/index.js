@@ -107,16 +107,53 @@ const WordModule = {
     }
 };
 
-const $wordInput = document.getElementById('word-input');
+const WordInputModule = {
+    _$wordInput: document.getElementById('word-input'),
+    _inputListeners: [],
+
+    init() {
+        this._$wordInput.addEventListener('input', this._handleInput.bind(this));
+    },
+
+    set word(newWord) {
+        this._$wordInput.value = newWord;
+    },
+
+    get word() {
+        return this._$wordInput.value;
+    },
+
+    clear() {
+        this.word = '';
+    },
+
+    focus() {
+        this._$wordInput.focus();
+    },
+
+    onInput(listener) {
+        this._inputListeners.push(listener);
+    },
+
+    dispatchEvent(event) {
+        this._$wordInput.dispatchEvent(event);
+    },
+
+    _handleInput(event) {
+        this._inputListeners.forEach(listener => listener(event));
+    }
+};
+
+WordInputModule.init();
 
 window.addEventListener('keydown', () => {
-    $wordInput.focus();
+    WordInputModule.focus();
 });
 
-$wordInput.focus();
-$wordInput.addEventListener('input', e => {
+WordInputModule.focus();
+WordInputModule.onInput(e => {
     if (SHOULD_AUTO_TYPE && !e.autoTyped) {
-        $wordInput.value = $wordInput.value.slice(0, -1);
+        WordInputModule.word = WordInputModule.word.slice(0, -1);
     }
 
     validateInput();
@@ -141,19 +178,19 @@ function restartGame() {
     ScoreModule.reset();
     TimerModule.startTimer();
 
-    $wordInput.value = '';
+    WordInputModule.clear();
     nextWord();
 }
 
 function checkWord() {
-    const enteredWord = $wordInput.value;
+    const enteredWord = WordInputModule.word;
     const requiredWord = WordModule.word;
 
     return enteredWord.toLowerCase() === requiredWord.toLowerCase();
 }
 
 function nextWord() {
-    $wordInput.value = '';
+    WordInputModule.clear();
     WordModule.word = randomWord();
 }
 
@@ -177,13 +214,13 @@ function startAutoType() {
 
 function autoType() {
     const word = WordModule.word;
-    const wordInput = $wordInput.value;
+    const wordInput = WordInputModule.word;
 
     if (word !== 'loading...') {
-        $wordInput.value += nextLetter(wordInput, word);
+        WordInputModule.word += nextLetter(wordInput, word);
         const event = new Event('input');
         event.autoTyped = true;
-        $wordInput.dispatchEvent(event);
+        WordInputModule.dispatchEvent(event);
     }
 }
 
