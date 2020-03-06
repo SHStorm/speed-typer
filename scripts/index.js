@@ -95,7 +95,7 @@ const WordModule = {
             return;
         }
 
-        this.word = 'Loading...';
+        this.word = 'loading...';
 
         newWord.then(word => {
             this.word = word;
