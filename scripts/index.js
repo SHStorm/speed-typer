@@ -1,12 +1,38 @@
 const SHOULD_AUTO_TYPE = true;
 const INITIAL_TIME = 10;
 
-let score = 0;
+const ScoreModule = {
+    _SCORE_STEP: 5,
+
+    _$score: document.getElementById('score'),
+    _score: 0,
+
+    set score(newScore) {
+        this._score = newScore;
+        this.renderScore();
+    },
+
+    get score() {
+        return this._score;
+    },
+
+    incrementScore() {
+        this.score = this.score + this._SCORE_STEP;
+    },
+
+    reset() {
+        this.score = 0;
+    },
+
+    renderScore() {
+        this._$score.textContent = this._score;
+    }
+};
+
 let time = INITIAL_TIME;
 
 const $word = document.getElementById('word');
 const $wordInput = document.getElementById('word-input');
-const $score = document.getElementById('score');
 const $time = document.getElementById('time');
 
 window.addEventListener('keydown', () => {
@@ -22,9 +48,8 @@ $wordInput.addEventListener('input', e => {
     validateInput();
 });
 
-renderScore();
-nextWord();
 startTimer();
+restartGame();
 
 if (SHOULD_AUTO_TYPE) {
     startAutoType();
@@ -33,7 +58,7 @@ if (SHOULD_AUTO_TYPE) {
 function validateInput() {
     if (checkWord()) {
         incrementTime();
-        incrementScore();
+        ScoreModule.incrementScore();
         nextWord();
     }
 }
@@ -41,15 +66,6 @@ function validateInput() {
 function incrementTime() {
     time++;
     renderTime();
-}
-
-function incrementScore() {
-    score++;
-    renderScore();
-}
-
-function renderScore() {
-    $score.textContent = score + '';
 }
 
 function renderTime() {
@@ -72,8 +88,7 @@ function updateTimer() {
 }
 
 function restartGame() {
-    score = 0;
-    renderScore();
+    ScoreModule.reset();
 
     time = INITIAL_TIME;
     renderTime();
