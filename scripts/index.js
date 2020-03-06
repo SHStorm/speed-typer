@@ -1,4 +1,4 @@
-const SHOULD_AUTO_TYPE = true;
+const SHOULD_AUTO_TYPE = false;
 const INITIAL_TIME = 30;
 const TIME_PER_WORD = 2;
 
