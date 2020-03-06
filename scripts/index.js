@@ -86,7 +86,27 @@ const TimerModule = {
     }
 };
 
-const $word = document.getElementById('word');
+const WordModule = {
+    _$word: document.getElementById('word'),
+
+    set word(newWord) {
+        if (typeof newWord === 'string') {
+            this._$word.textContent = newWord;
+            return;
+        }
+
+        this.word = 'Loading...';
+
+        newWord.then(word => {
+            this.word = word;
+        });
+    },
+
+    get word() {
+        return this._$word.textContent;
+    }
+};
+
 const $wordInput = document.getElementById('word-input');
 
 window.addEventListener('keydown', () => {
@@ -127,18 +147,14 @@ function restartGame() {
 
 function checkWord() {
     const enteredWord = $wordInput.value;
-    const requiredWord = $word.textContent;
+    const requiredWord = WordModule.word;
 
     return enteredWord.toLowerCase() === requiredWord.toLowerCase();
 }
 
 function nextWord() {
     $wordInput.value = '';
-    $word.textContent = 'loading...';
-
-    randomWord().then(word => {
-        $word.textContent = word;
-    });
+    WordModule.word = randomWord();
 }
 
 async function randomWord() {
@@ -160,7 +176,7 @@ function startAutoType() {
 }
 
 function autoType() {
-    const word = $word.textContent;
+    const word = WordModule.word;
     const wordInput = $wordInput.value;
 
     if (word !== 'loading...') {
