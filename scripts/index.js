@@ -1,5 +1,6 @@
 const SHOULD_AUTO_TYPE = true;
 const INITIAL_TIME = 10;
+const TIME_PER_WORD = 2;
 
 const ScoreModule = {
     _SCORE_STEP: 5,
@@ -64,7 +65,7 @@ function validateInput() {
 }
 
 function incrementTime() {
-    time++;
+    time += TIME_PER_WORD;
     renderTime();
 }
 
