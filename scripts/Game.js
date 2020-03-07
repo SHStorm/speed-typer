@@ -1,21 +1,24 @@
 const Game = {
+    _isPlaying: false,
+
     init() {
         this._enableAutofocusOnKeyPress();
         WordInputModule.focus();
         WordInputModule.onInput(this._handleInput.bind(this));
-        TimerModule.onTimeEnd(this.restart.bind(this));
+        TimerModule.onTimeEnd(this._onGameOver.bind(this));
     },
 
     start() {
         WordInputModule.clear();
 
         ScoreModule.reset();
-        TimerModule.startTimer();
+        TimerModule.reset();
 
         this._updateWord();
     },
 
-    restart() {
+    _onGameOver() {
+        this._isPlaying = false;
         this.start();
     },
 
@@ -26,6 +29,11 @@ const Game = {
     },
 
     _handleInput() {
+        if (!this._isPlaying) {
+            this._isPlaying = true;
+            TimerModule.startTimer();
+        }
+
         if (this._isWordCompleted()) {
             TimerModule.incrementTime();
             ScoreModule.incrementScore();
