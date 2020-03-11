@@ -30,6 +30,10 @@ const WordInputModule = {
         this._$wordInput.dispatchEvent(event);
     },
 
+    set isDisabled(flag) {
+        this._$wordInput.disabled = flag;
+    },
+
     _handleInput() {
         this._inputListeners.forEach(listener => listener());
     }

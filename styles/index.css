@@ -117,3 +117,8 @@ body {
   border: none;
   border-radius: 0.25em;
 }
+
+.input:disabled {
+  opacity: 0.95;
+  cursor: not-allowed;
+}

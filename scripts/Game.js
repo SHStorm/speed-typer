@@ -19,7 +19,12 @@ const Game = {
 
     _onGameOver() {
         this._isPlaying = false;
-        this.start();
+        WordInputModule.isDisabled = true;
+
+        setTimeout(() => {
+            WordInputModule.isDisabled = false;
+            this.start();
+        }, 3000);
     },
 
     _enableAutofocusOnKeyPress() {
