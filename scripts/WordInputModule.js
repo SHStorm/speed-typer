@@ -26,10 +26,6 @@ const WordInputModule = {
         this._inputListeners.push(listener);
     },
 
-    dispatchEvent(event) {
-        this._$wordInput.dispatchEvent(event);
-    },
-
     set isDisabled(flag) {
         this._$wordInput.disabled = flag;
     },
