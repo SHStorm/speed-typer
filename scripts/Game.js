@@ -1,4 +1,13 @@
 const Game = {
+    OFFLINE_WORDS: [
+        'game', 'box', 'key', 'laptop', 'interesting',
+        'motherboard', 'marvelous', 'family', 'gentleman',
+        'superhero', 'mouse-pad', 'speed', 'typing', 'tolerance',
+        'instrument', 'utility', 'barbarian', 'sandbox',
+        'social', 'slave', 'terrarium', 'unfortunately',
+        'gymnastics', 'kryptonite', 'napkins', 'premium'
+    ],
+
     _isPlaying: false,
 
     init() {
@@ -59,6 +68,10 @@ const Game = {
     },
 
     async _randomWord() {
+        if (!navigator.onLine) {
+            return this.OFFLINE_WORDS[Math.floor(Math.random() * this.OFFLINE_WORDS.length)];
+        }
+
         const response = await fetch('https://puzzle.mead.io/puzzle?wordCount=1');
         const responseBody = await response.json();
 
