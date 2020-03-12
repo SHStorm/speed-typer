@@ -34,5 +34,3 @@ const WordInputModule = {
         this._inputListeners.forEach(listener => listener());
     }
 };
-
-WordInputModule.init();

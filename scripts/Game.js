@@ -10,7 +10,12 @@ const Game = {
 
     _isPlaying: false,
 
-    init() {
+    init({scorePerWord, initialTime, timePerWord}) {
+        WordInputModule.init();
+        WordModule.init();
+        ScoreModule.init({ scorePerWord });
+        TimerModule.init({ initialTime, timePerWord });
+
         this._enableAutofocusOnKeyPress();
         WordInputModule.focus();
         WordInputModule.onInput(this._handleInput.bind(this));

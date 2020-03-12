@@ -1,11 +1,16 @@
 const TimerModule = {
-    INITIAL_TIME: 30,
-    TIME_PER_WORD: 2,
+    _initialTime: 0,
+    _timePerWord: 0,
 
     _$time: document.getElementById('time'),
     _time: 0,
     _timerInterval: -1,
     _timeEndListeners: [],
+
+    init({initialTime, timePerWord}) {
+        this._initialTime = initialTime;
+        this._timePerWord = timePerWord;
+    },
 
     set time(newTime) {
         this._time = newTime;
@@ -17,11 +22,11 @@ const TimerModule = {
     },
 
     incrementTime() {
-        this.time += this.TIME_PER_WORD;
+        this.time += this._timePerWord;
     },
 
     reset() {
-        this.time = this.INITIAL_TIME;
+        this.time = this._initialTime;
     },
 
     renderTime() {

@@ -1,8 +1,12 @@
 const ScoreModule = {
-    _SCORE_STEP: 5,
+    _scorePerWord: 0,
 
     _$score: document.getElementById('score'),
     _score: 0,
+
+    init({scorePerWord}) {
+        this._scorePerWord = scorePerWord;
+    },
 
     set score(newScore) {
         this._score = newScore;
@@ -14,7 +18,7 @@ const ScoreModule = {
     },
 
     incrementScore() {
-        this.score = this.score + this._SCORE_STEP;
+        this.score = this.score + this._scorePerWord;
     },
 
     reset() {
