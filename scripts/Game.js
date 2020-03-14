@@ -20,6 +20,8 @@ const Game = {
         WordInputModule.focus();
         WordInputModule.onInput(this._handleInput.bind(this));
         TimerModule.onTimeEnd(this._onGameOver.bind(this));
+
+        document.getElementById('restart').addEventListener('click', this._restart.bind(this));
     },
 
     start() {
@@ -31,14 +33,21 @@ const Game = {
         this._updateWord();
     },
 
+    _restart() {
+        document.getElementById('game-screen').hidden = false;
+        document.getElementById('game-over-screen').hidden = true;
+        this.start();
+    },
+
     _onGameOver() {
         this._isPlaying = false;
-        WordInputModule.isDisabled = true;
 
-        setTimeout(() => {
-            WordInputModule.isDisabled = false;
-            this.start();
-        }, 3000);
+        document.getElementById('final-score').textContent = ScoreModule.score;
+
+        document.getElementById('game-screen').hidden = true;
+        document.getElementById('game-over-screen').hidden = false;
+
+        document.getElementById('restart').focus();
     },
 
     _enableAutofocusOnKeyPress() {

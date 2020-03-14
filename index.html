@@ -21,14 +21,28 @@
     <header class="panel__header">
       <h1 class="title"><span aria-hidden="true">&#x1f4bb; </span>Speed Typer<span aria-hidden="true"> &#x1f4bb;</span></h1>
     </header>
-    <div class="panel__stats stats">
-      <b class="stat">Time: <span id="time">0</span>s</b>
-      <b class="stat">Score: <span id="score">0</span></b>
+
+    <div id="game-screen" class="panel__body game-screen">
+      <div class="game-screen__stats stats">
+        <b class="stat">Time: <span id="time">0</span>s</b>
+        <b class="stat">Score: <span id="score">0</span></b>
+      </div>
+
+      <small id="info" class="info">Type the following:</small>
+      <kbd id="word" class="word" aria-labelledby="info"></kbd>
+
+      <label class="sr-only" for="word-input">Type the word</label>
+      <input id="word-input" class="game-screen__input input" type="text" placeholder="Type the word here...">
     </div>
-    <small id="info" class="info">Type the following:</small>
-    <kbd id="word" class="word" aria-labelledby="info"></kbd>
-    <label class="sr-only" for="word-input">Type the word</label>
-    <input id="word-input" class="panel__input input" type="text" placeholder="Type the word here...">
+
+    <div id="game-over-screen" class="panel__body game-over-screen" hidden>
+      <div class="game-over-screen__score">
+        <small class="info">Your score:</small>
+        <b id="final-score" class="final-score">15</b>
+      </div>
+
+      <button id="restart" class="button">Restart</button>
+    </div>
   </section>
 </body>
 </html>
