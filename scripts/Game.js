@@ -61,6 +61,8 @@ const Game = {
         document.getElementById('game-screen').hidden = false;
         document.getElementById('game-start-screen').hidden = true;
         document.getElementById('game-over-screen').hidden = true;
+
+        WordInputModule.focus();
     },
 
     _showGameOverScreen({ finalScore }) {
