@@ -10,7 +10,7 @@ const Game = {
 
     _isPlaying: false,
 
-    init({scorePerWord, initialTime, timePerWord}) {
+    init({ scorePerWord, initialTime, timePerWord }) {
         WordInputModule.init();
         WordModule.init();
         ScoreModule.init({ scorePerWord });
@@ -34,19 +34,25 @@ const Game = {
     },
 
     _restart() {
-        document.getElementById('game-screen').hidden = false;
-        document.getElementById('game-over-screen').hidden = true;
+        this._showGameScreen();
         this.start();
     },
 
     _onGameOver() {
         this._isPlaying = false;
+        this._showGameOverScreen({ finalScore: ScoreModule.score });
+    },
 
-        document.getElementById('final-score').textContent = ScoreModule.score;
+    _showGameScreen() {
+        document.getElementById('game-screen').hidden = false;
+        document.getElementById('game-over-screen').hidden = true;
+    },
 
+    _showGameOverScreen({ finalScore }) {
         document.getElementById('game-screen').hidden = true;
         document.getElementById('game-over-screen').hidden = false;
 
+        document.getElementById('final-score').textContent = finalScore;
         document.getElementById('restart').focus();
     },
 
