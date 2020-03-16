@@ -21,10 +21,17 @@ const Game = {
         WordInputModule.onInput(this._handleInput.bind(this));
         TimerModule.onTimeEnd(this._onGameOver.bind(this));
 
+        document.getElementById('start').addEventListener('click', this._start.bind(this));
         document.getElementById('restart').addEventListener('click', this._restart.bind(this));
     },
 
     start() {
+        this._showGameStartScreen();
+    },
+
+    _start() {
+        this._showGameScreen();
+
         WordInputModule.clear();
 
         ScoreModule.reset();
@@ -34,7 +41,6 @@ const Game = {
     },
 
     _restart() {
-        this._showGameScreen();
         this.start();
     },
 
@@ -43,14 +49,24 @@ const Game = {
         this._showGameOverScreen({ finalScore: ScoreModule.score });
     },
 
+    _showGameStartScreen() {
+        document.getElementById('game-start-screen').hidden = false;
+        document.getElementById('game-screen').hidden = true;
+        document.getElementById('game-over-screen').hidden = true;
+
+        document.getElementById('start').focus();
+    },
+
     _showGameScreen() {
         document.getElementById('game-screen').hidden = false;
+        document.getElementById('game-start-screen').hidden = true;
         document.getElementById('game-over-screen').hidden = true;
     },
 
     _showGameOverScreen({ finalScore }) {
-        document.getElementById('game-screen').hidden = true;
         document.getElementById('game-over-screen').hidden = false;
+        document.getElementById('game-start-screen').hidden = true;
+        document.getElementById('game-screen').hidden = true;
 
         document.getElementById('final-score').textContent = finalScore;
         document.getElementById('restart').focus();

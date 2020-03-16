@@ -7,7 +7,7 @@
   <title>Speed Typer</title>
 
   <link rel="stylesheet" href="/styles/index.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,300&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300&display=swap">
 
   <script src="/scripts/ScoreModule.js" defer></script>
   <script src="/scripts/TimerModule.js" defer></script>
@@ -22,7 +22,13 @@
       <h1 class="title"><span aria-hidden="true">&#x1f4bb; </span>Speed Typer<span aria-hidden="true"> &#x1f4bb;</span></h1>
     </header>
 
-    <div id="game-screen" class="panel__body game-screen">
+    <div id="game-start-screen" class="panel__body game-start-screen">
+      <h1 class="title">Welcome to Speed Typer!</h1>
+      <p class="game-start-screen__instructions instructions">Type words that you see as fast as possible. You will have 30 seconds at the beginning of the game. For each word that you type, you gain +2 seconds to time and +5 to score. May the force be with you!</p>
+      <button id="start" class="button button--cta">Start</button>
+    </div>
+
+    <div id="game-screen" class="panel__body game-screen" hidden>
       <div class="game-screen__stats stats">
         <b class="stat">Time: <span id="time">0</span>s</b>
         <b class="stat">Score: <span id="score">0</span></b>

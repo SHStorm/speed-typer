@@ -77,6 +77,15 @@ body {
   width: 100%;
 }
 
+.game-start-screen {
+
+}
+
+.game-start-screen__instructions {
+  margin-top: 0.8em;
+  margin-bottom: auto;
+}
+
 .game-screen {
 
 }
@@ -176,4 +185,10 @@ body {
 
 .button:hover {
   background-color: #1c2834;
+}
+
+.instructions {
+  font-size: 0.85em;
+  font-weight: 300;
+  text-align: center;
 }
